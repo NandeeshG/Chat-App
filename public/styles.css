@@ -1,0 +1,9 @@
+body {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+h1 {
+    font-size: 50px;
+}
