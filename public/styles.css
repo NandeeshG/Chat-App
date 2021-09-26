@@ -23,10 +23,21 @@ body {
 #header {
     text-align: center;
     background-color: #aaaaaa;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
 }
 #groupName {
+    flex-grow: 1;
     padding: 5px;
     margin: 10px;
+}
+#toggleUsers {
+    border-radius: 10000px;
+    height: 30px;
+    width: 30px;
+    margin-right: 20px;
+    background-color: #26bdd8de;
 }
 
 #content {
@@ -48,7 +59,7 @@ body {
     padding: 5px;
     padding-left: 15px;
     margin: 0px;
-    word-break: break-all;
+    word-break: break-word;
 }
 #messages > li:nth-child(even) {
     background-color: #eeeeee;

@@ -5,6 +5,7 @@ const messages = document.getElementById('messages')
 const messagesBox = document.getElementById('messagesBox')
 const changeName = document.getElementById('changeName')
 const printUsername = document.getElementById('printUsername')
+const usersBox = document.getElementById('usersBox')
 const userList = document.getElementById('users')
 let username = ''
 
@@ -76,3 +77,24 @@ socket.on('user list', (users) => {
         userList.appendChild(newelem)
     }
 })
+
+const rightArrow = '&#5171;'
+const leftArrow = '&#5176;'
+const toggleUsers = document.getElementById('toggleUsers')
+let showUsers = 0
+
+toggleUsers.addEventListener('click', () => {
+    toggleUsersBox()
+})
+function toggleUsersBox() {
+    if (showUsers) {
+        usersBox.style.display = 'none'
+        showUsers = 0
+        toggleUsers.innerHTML = leftArrow
+    } else {
+        usersBox.style.display = 'flex'
+        showUsers = 1
+        toggleUsers.innerHTML = rightArrow
+    }
+}
+toggleUsersBox()
