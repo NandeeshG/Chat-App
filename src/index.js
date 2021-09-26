@@ -1,17 +1,13 @@
 const express = require('express')
-const http = require('http')
-const socketio = require('socket.io')
-const PORT = process.env.PORT || 3000
 const app = express()
+const http = require('http')
 const server = http.createServer(app)
-const io = socketio(server)
+const { Server } = require('socket.io')
+const io = new Server(server)
 
 const exphbs = require('express-handlebars')
 const hbs = exphbs.create({
     helpers: {
-        foo: function () {
-            return 'Foo!'
-        },
         print_name: function () {
             return this.username
         },
@@ -21,10 +17,6 @@ app.engine('handlebars', hbs.engine)
 app.set('view engine', 'handlebars')
 
 app.use(express.static('public'))
-
-io.on('connection', () => {
-    console.log('New WebSocket Conn')
-})
 
 app.get('/', (req, res) => {
     res.render('home', {
@@ -39,4 +31,19 @@ app.get('/', (req, res) => {
     })
 })
 
+io.on('connection', (socket) => {
+    console.dir(Object.keys(socket))
+    console.log(socket.data)
+    console.log(socket.id)
+    socket.on('chat message', (data) => {
+        //socket.broadcast.emit('chat message', data)
+        io.emit('chat message', data)
+        console.log(data)
+    })
+    socket.on('disconnect', () => {
+        console.log('User disconnected')
+    })
+})
+
+const PORT = process.env.PORT || 3000
 server.listen(PORT, () => console.log(`Active at http://localhost:${PORT}`))
