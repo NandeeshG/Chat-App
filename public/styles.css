@@ -1,62 +1,115 @@
+html {
+    height: 100%;
+    width: 100%;
+}
 body {
+    height: 100%;
+    width: 100%;
+    padding: 0;
     margin: 0;
-    padding-bottom: 3rem;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-        Helvetica, Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto;
 }
 
-#form {
-    background: rgba(0, 0, 0, 0.15);
-    padding: 0.25rem;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+#container {
     display: flex;
-    height: 3rem;
-    box-sizing: border-box;
-    backdrop-filter: blur(10px);
-}
-#input {
-    border: none;
-    padding: 0 1rem;
-    flex-grow: 1;
-    border-radius: 2rem;
-    margin: 0.25rem;
-}
-#input:focus {
-    outline: none;
-}
-#form > button {
-    background: #333;
-    border: none;
-    padding: 0 1rem;
-    margin: 0.25rem;
-    border-radius: 3px;
-    outline: none;
-    color: #fff;
+    flex-flow: column nowrap;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
 }
 
+#header {
+    text-align: center;
+    background-color: #aaaaaa;
+}
+#groupName {
+    padding: 5px;
+    margin: 10px;
+}
+
+#content {
+    display: flex;
+    flex-flow: row nowrap;
+    flex-grow: 1;
+    /*flex: 0 0 1;*/
+    overflow: hidden;
+}
+#messagesBox {
+    flex-grow: 1;
+    overflow: auto;
+}
 #messages {
     list-style-type: none;
-    margin: 0;
-    padding: 0;
+    padding: 0px;
 }
 #messages > li {
-    padding: 0.5rem 1rem;
+    padding: 5px;
+    padding-left: 15px;
+    margin: 0px;
+    word-break: break-all;
 }
-#messages > li:nth-child(odd) {
-    background: #efefef;
+#messages > li:nth-child(even) {
+    background-color: #eeeeee;
 }
 
-/*
-body {
-    max-width: 700px;
-    margin: 0 auto;
+#usersBox {
+    display: flex;
+    flex-flow: column nowrap;
     text-align: center;
+    background-color: #cccccc;
+}
+#usersBoxHeading {
+    padding-top: 10px;
+}
+#users {
+    flex-grow: 1;
+}
+#users > li {
+    text-align: left;
+    margin: 4px 0px;
+}
+#changeName {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10000px;
+    border: none;
+    background-color: #26bdd8de;
+}
+#changeName:active {
+    background-color: #196a79de;
 }
 
-h1 {
-    font-size: 50px;
+#footer {
+    background-color: #cccccc;
+    padding: 5px;
 }
-*/
+#form {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    font-size: 1.25rem;
+    justify-content: space-evenly;
+}
+#input {
+    flex-grow: 1;
+    font-size: 1.45rem;
+    outline: none;
+    height: 3rem;
+    margin: 5px;
+    border: none;
+    border-radius: 10000px;
+    padding: 3px 10px;
+}
+#sendButton {
+    padding: 10px;
+    border-radius: 20%;
+    font-size: 1.25rem;
+    margin: 5px;
+    border: none;
+    background-color: #26bdd8de;
+}
+#sendButton:active {
+    background-color: #196a79de;
+}

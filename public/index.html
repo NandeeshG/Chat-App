@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/chat.js" defer></script>
+    <title>Chat App</title>
+</head>
+
+<body>
+
+    <div id="container">
+        <div id="header">
+            <h1 id="groupName">Chat Group</h1>
+        </div>
+        <div id="content">
+            <div id="messagesBox">
+                <ul id="messages"></ul>
+            </div>
+            <div id="usersBox">
+                <span id="usersBoxHeading"><b>Active Users:</b></span>
+                <ol id="users">
+                </ol>
+                <button id="changeName">Change Username</button>
+            </div>
+        </div>
+        <div id="footer">
+            <form id="form" action="">
+                <label for="input" id="printUsername">Guest:</label>
+                <input id="input" name="input" autocomplete="off" autofocus />
+                <button id="sendButton">Send</button>
+            </form>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

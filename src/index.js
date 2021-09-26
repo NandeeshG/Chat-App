@@ -1,47 +1,63 @@
 const express = require('express')
 const app = express()
+
 const http = require('http')
 const server = http.createServer(app)
+
 const { Server } = require('socket.io')
 const io = new Server(server)
 
-const exphbs = require('express-handlebars')
-const hbs = exphbs.create({
-    helpers: {
-        print_name: function () {
-            return this.username
-        },
-    },
-})
-app.engine('handlebars', hbs.engine)
-app.set('view engine', 'handlebars')
-
 app.use(express.static('public'))
 
-app.get('/', (req, res) => {
-    res.render('home', {
-        username: req.params.username || req.query.username || 'Guest',
-        friends: req.body
-            ? req.body.friends
-            : [
-                  { username: 'Friend1' },
-                  { username: 'Friend2' },
-                  { username: 'Friend3' },
-              ],
-    })
+const idNameMap = {}
+
+app.get('/validateUsername', (req, res) => {
+    const name = req.headers.username
+    if (Object.values(idNameMap).includes(name))
+        res.status(401).send({ showError: 'Username already taken.' })
+    else res.send()
 })
 
 io.on('connection', (socket) => {
-    console.dir(Object.keys(socket))
-    console.log(socket.data)
-    console.log(socket.id)
-    socket.on('chat message', (data) => {
-        //socket.broadcast.emit('chat message', data)
-        io.emit('chat message', data)
-        console.log(data)
+    idNameMap[socket.id] = `Guest(${socket.id.substr(0, 3)})`
+    io.emit('announcement', `${idNameMap[socket.id]} joined`, 'green')
+    socket.emit('new user', idNameMap[socket.id])
+    io.emit('user list', Object.values(idNameMap))
+    //console.log('Joined ', idNameMap)
+
+    socket.on('chat message', (data, username) => {
+        //console.log('Chat message event ', idNameMap)
+        if (idNameMap[socket.id] === username)
+            io.emit('chat message', data, username)
+        else
+            socket.emit(
+                'announcement',
+                'Invalid user! Please rejoin chat...',
+                'red'
+            )
     })
+
+    socket.on('change username', (username) => {
+        const oldName = idNameMap[socket.id]
+        idNameMap[socket.id] = username
+        //console.log('Change username event ', idNameMap)
+        io.emit(
+            'announcement',
+            `${oldName} changed their username to ${username}`,
+            'orange'
+        )
+        io.emit('user list', Object.values(idNameMap))
+    })
+
     socket.on('disconnect', () => {
-        console.log('User disconnected')
+        //console.log('Disconnect event ', idNameMap)
+        io.emit(
+            'announcement',
+            `${idNameMap[socket.id]} has left the chat`,
+            'red'
+        )
+        delete idNameMap[socket.id]
+        io.emit('user list', Object.values(idNameMap))
     })
 })
 

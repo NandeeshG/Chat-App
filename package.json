@@ -4,14 +4,13 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "env-cmd -f ./config/dev.env nodemon src/index.js -e handlebars,js,css,html"
+    "dev": "env-cmd -f ./config/dev.env nodemon src/index.js -e js,css,html"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
     "express": "^4.17.1",
-    "express-handlebars": "^5.3.4",
     "socket.io": "^4.2.0"
   },
   "devDependencies": {
