@@ -79,7 +79,7 @@ body {
 }
 #users > li {
     text-align: left;
-    margin: 4px 0px;
+    margin: 4px 4px 4px 2px;
 }
 #changeName {
     padding: 10px;
